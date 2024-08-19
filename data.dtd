@@ -1,0 +1,8 @@
+<!ELEMENT ParkingData (ParkingSlot+)>
+<!ELEMENT ParkingSlot (SlotID, ServiceType, SlotType, Availability, MonthlyRate, YearlyRate)>
+<!ELEMENT SlotID (#PCDATA)>
+<!ELEMENT ServiceType (#PCDATA)>
+<!ELEMENT SlotType (#PCDATA)>
+<!ELEMENT Availability (#PCDATA)>
+<!ELEMENT MonthlyRate (#PCDATA)>
+<!ELEMENT YearlyRate (#PCDATA)>

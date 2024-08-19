@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.christuniversity.edu/parking"
+           targetNamespace="http://www.christuniversity.edu/parking"
+           elementFormDefault="qualified">
+
+    <xs:element name="ParkingData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ParkingSlot" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="SlotID" type="xs:integer"/>
+                            <xs:element name="ServiceType" type="ServiceType"/>
+                            <xs:element name="SlotType" type="SlotType"/>
+                            <xs:element name="Availability" type="AvailabilityType"/>
+                            <xs:element name="MonthlyRate" type="xs:decimal"/>
+                            <xs:element name="YearlyRate" type="xs:decimal"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="SlotTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Two-Wheeler"/>
+            <xs:enumeration value="Four-Wheeler"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="AvailabilityType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Available"/>
+            <xs:enumeration value="Occupied"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

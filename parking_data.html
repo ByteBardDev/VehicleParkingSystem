@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Data</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .available {
+            background-color: #d4edda; /* Green background for available */
+            color: #155724; /* Dark green text */
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .occupied {
+            background-color: #f8d7da; /* Red background for occupied */
+            color: #721c24; /* Dark red text */
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Parking Slots</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Slot ID</th>
+                    <th>Service Type</th>
+                    <th>Slot Type</th>
+                    <th>Availability</th>
+                    <th>Rate/Month</th>
+                    <th>Rate/Year</th>
+
+                </tr>
+            </thead>
+            <tbody id="data-table">
+                <!-- Data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch('data.xml')
+            .then(response => response.text())
+            .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+            .then(data => {
+                const namespaceURI = "http://www.christuniversity.edu/parking";
+                const slots = data.getElementsByTagNameNS(namespaceURI, 'ParkingSlot');
+                let tableRows = '';
+                for (let i = 0; i < slots.length; i++) {
+                    const slot = slots[i];
+                    const slotid = slot.getElementsByTagName('SlotID')[0].textContent;
+                    const serviceid = slot.getElementsByTagName('ServiceType')[0].textContent;
+                    const type = slot.getElementsByTagName('SlotType')[0].textContent;
+                    const availability = slot.getElementsByTagName('Availability')[0].textContent;
+                    const MonthlyRate = slot.getElementsByTagName('MonthlyRate')[0].textContent;
+                    const YearlyRate = slot.getElementsByTagName('YearlyRate')[0].textContent;
+                    const availabilityClass = availability === 'Available' ? 'available' : 'occupied';
+                    tableRows += `
+                        <tr>
+                            <td>${slotid}</td>
+                            <td>${serviceid}</td>
+                            <td>${type}</td>
+                            <td class="${availabilityClass}">${availability}</td>
+                            <td>${MonthlyRate}</td>
+                            <td>${YearlyRate}</td>
+                        </tr>
+                    `;
+                }
+                document.getElementById('data-table').innerHTML = tableRows;
+            });
+    </script>
+</body>
+</html>
