@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Login Type</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www-s3-live.kent.edu/s3fs-root/s3fs-public/styles/normal_banner/public/100_2101_edit.jpg?VersionId=JrPr8NeuA8vPaUhWoT4LkwgRHcaM2gTy&h=e6f36a9c&itok=Mv7dSNxg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .choice-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-continue {
+            background-color: #f44336;
+            color: #ffffff;
+            border-color: #f44336;
+            margin-top: 1rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-continue:hover {
+            background-color: #c62828;
+            color: #ffffff;
+            border-color: #c62828;
+        }
+
+        .dropdown-menu {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="choice-container">
+        <h2>Signing Up As</h2>
+        <div class="form-group">
+            <select id="role-select" class="form-control">
+                <option value="" selected disabled>Select an option</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <button id="continue-btn" class="btn btn-continue btn-block" disabled>Continue</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const roleSelect = document.getElementById('role-select');
+        const continueBtn = document.getElementById('continue-btn');
+
+        roleSelect.addEventListener('change', function() {
+            continueBtn.disabled = false;
+        });
+
+        continueBtn.addEventListener('click', function() {
+            const selectedRole = roleSelect.value;
+            if (selectedRole) {
+                window.location.href = `signup.html?type=${selectedRole}`;
+            }
+        });
+    </script>
+</body>
+</html>
